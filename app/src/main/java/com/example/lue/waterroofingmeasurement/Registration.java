@@ -112,6 +112,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     String house="";
     String road_s="";
     String block_s="";
+    //
     public static final String USERNAME = "user_name";
     public static final String MOBILE = "mobile";
     public static final String EMAIL = "email";
