@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9ecec">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Specification"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="37dp"
+        android:id="@+id/txtsp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp" />
+
+
+    <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        android:id="@+id/categroy"
+        android:layout_marginLeft="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+            <CheckBox
+
+                android:id="@+id/ta1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/lw75"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/lw75"
+                android:layout_marginTop="205dp"
+                android:text="TA1" />
+
+            <CheckBox
+                android:id="@+id/ta2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ta1"
+                android:layout_alignBottom="@+id/ta1"
+                android:layout_marginStart="78dp"
+                android:layout_toEndOf="@+id/pucoat"
+                android:text="TA2" />
+
+            <CheckBox
+                android:id="@+id/lw75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/pu35"
+                android:layout_below="@+id/ta1"
+                android:text="LW 75" />
+
+            <CheckBox
+                android:id="@+id/lw100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/ta2"
+                android:layout_below="@+id/ta1"
+                android:text="Lw 100" />
+
+            <CheckBox
+                android:id="@+id/pu35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/pucoat"
+                android:layout_below="@+id/lw75"
+                android:text="PU 35" />
+
+            <CheckBox
+                android:id="@+id/pu75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/pu35"
+                android:layout_alignBottom="@+id/pu35"
+                android:layout_alignStart="@+id/lw100"
+                android:text="PU 50" />
+
+            <CheckBox
+                android:id="@+id/pucoat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/pu35"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="9dp"
+                android:text="PU COAT" />
+
+            <CheckBox
+                android:id="@+id/LqM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/pucoat"
+                android:layout_alignBottom="@+id/pucoat"
+                android:layout_alignStart="@+id/pu75"
+                android:text="LqM" />
+
+            <CheckBox
+                android:id="@+id/LqMr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/LqM"
+                android:layout_below="@+id/LqM"
+                android:layout_marginTop="9dp"
+                android:text="LqMr" />
+
+            <CheckBox
+                android:id="@+id/poly50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/LqMr"
+                android:layout_alignBottom="@+id/LqMr"
+                android:layout_alignStart="@+id/pucoat"
+                android:text="Poly 50" />
+
+
+            <CheckBox
+                android:id="@+id/gtx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/poly50"
+                android:layout_below="@+id/poly50"
+                android:text="GTX" />
+
+        <EditText
+            android:id="@+id/myrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myedittext"
+            android:ems="10"
+            android:hint="Rate:      meter per sq "
+
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="82dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/lw100" />
+
+    </RelativeLayout>
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:layout_marginTop="40dp"
+     android:layout_marginLeft="80dp">
+    <Button
+        android:id="@+id/buttonok"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="93dp"
+        android:text="OK"
+        android:background="#545f81"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginEnd="31dp"
+        android:layout_alignTop="@+id/txtsp"/>
+
+    <Button
+        android:id="@+id/buttoncancel"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginLeft="40dp"
+        android:text="cancel"
+        android:background="#545f81"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginEnd="31dp"
+        android:layout_alignTop="@+id/txtsp"/>
+</LinearLayout>
+
+</RelativeLayout>

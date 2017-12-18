@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lue.waterroofingmeasurement">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="in.wptrafficanalyzer.locationreversegeocodingv2.permission.MAPS_RECEIVE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/gulfrooflogo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".Registration" />
+        <activity android:name=".Home" />
+        <activity android:name=".Profile" />
+        <activity android:name=".SiteSurevey" />
+        <activity android:name=".Calculate" />
+        <activity android:name=".OneRoof" />
+        <activity android:name=".Quotation" />
+        <activity android:name=".Roof2" />
+        <activity android:name=".Roof3" />
+        <activity android:name=".Roof4" />
+        <activity android:name=".Roof5" />
+        <activity android:name=".Specificationscreen" />
+        <activity android:name=".CustomerDetails" />
+        <activity android:name=".OrderDetails" />
+        <activity android:name=".AdminRegister" />
+        <activity android:name=".AdminLogin" />
+        <activity android:name=".AdminForgotPassword" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".MapsActivity" />
+        <activity android:name=".ChooseOffer" />
+        <activity android:name=".CustomerRegistration" />
+        <activity android:name=".AddressSearch" />
+        <activity android:name=".SearchCustomer" />
+        <activity android:name=".CustomerList" />
+        <activity android:name=".EditCustomerDetails" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".SalesOption"></activity>
+    </application>
+
+</manifest>

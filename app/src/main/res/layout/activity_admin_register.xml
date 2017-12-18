@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9ecec">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/addnewcustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salesman Details "
+            android:textSize="24dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
+            android:layout_below="@+id/addnewcustomer">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                >
+
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="250dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Username"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1.48" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+
+                <EditText
+                    android:id="@+id/mobileno"
+                    android:layout_width="250dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="Mobile Number"
+                    android:paddingLeft="10dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="250dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"
+                    android:paddingLeft="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <EditText
+                    android:id="@+id/reEmail"
+                    android:layout_width="250dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:hint="Password"
+                    android:paddingLeft="10dp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+
+                <EditText
+                    android:id="@+id/landline"
+                    android:layout_width="250dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="Landline No"
+                    android:paddingLeft="10dp" />
+            </LinearLayout>
+
+            <!-- <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="20dp"
+                 android:orientation="horizontal">
+
+
+                 <EditText
+                     android:id="@+id/customerhouseno"
+                     android:layout_width="110dp"
+                     android:layout_height="25dp"
+                     android:layout_marginLeft="30dp"
+                     android:background="@drawable/myedittext"
+                     android:ems="10"
+                     android:inputType="textPostalAddress"
+                     android:hint="House No"
+                     android:paddingLeft="10dp" />
+                 <EditText
+                     android:id="@+id/customerroadno"
+                     android:layout_width="110dp"
+                     android:layout_height="25dp"
+                     android:layout_marginLeft="30dp"
+                     android:background="@drawable/myedittext"
+                     android:ems="10"
+                     android:inputType="textPostalAddress"
+                     android:hint="Road No"
+                     android:paddingLeft="10dp" />
+
+
+             </LinearLayout>-->
+
+            <!-- <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="20dp"
+                 android:orientation="horizontal">
+
+
+                 <EditText
+                     android:id="@+id/customerblockno"
+                     android:layout_width="250dp"
+                     android:layout_height="25dp"
+                     android:layout_marginLeft="30dp"
+                     android:background="@drawable/myedittext"
+                     android:ems="10"
+                     android:inputType="textPostalAddress"
+                     android:hint="Block No"
+                     android:paddingLeft="10dp" />
+
+               &lt;!&ndash;  <EditText
+                     android:id="@+id/customerlocation"
+                     android:layout_width="110dp"
+                     android:layout_height="25dp"
+                     android:layout_marginLeft="30dp"
+                     android:background="@drawable/myedittext"
+                     android:ems="10"
+                     android:hint="Location"
+                     android:paddingLeft="10dp" />&ndash;&gt;
+
+
+             </LinearLayout>-->
+
+            <!-- <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="20dp"
+                 android:orientation="horizontal"
+                 android:layout_gravity="center">
+                 <EditText
+                     android:id="@+id/customerlocation"
+                     android:layout_width="250dp"
+                     android:layout_height="25dp"
+                     android:background="@drawable/myedittext"
+                     android:ems="10"
+                     android:inputType="textPostalAddress"
+                     android:gravity="center"
+                     android:hint="Location"
+                     android:paddingLeft="10dp" />
+
+
+             </LinearLayout>-->
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/registerbutton"
+            android:layout_width="274dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#545f81"
+            android:text="Register"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9ecec">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Offerdetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Offer Details "
+            android:textColor="@android:color/black"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Roof 1"
+                android:textSize="18dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Roof Type:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/rooftypeinput1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/areainput1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="80dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/number1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="55dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specification:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/specificationinput1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="18dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="Roof 2"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Roof Type:"
+                    android:textSize="18dp" />
+
+
+                <EditText
+                    android:id="@+id/rooftypeinput2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area:"
+                    android:textSize="18dp" />
+
+
+                <EditText
+                    android:id="@+id/areainput2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="80dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />
+
+                <EditText
+                    android:id="@+id/rooftypeinput3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" /><![CDATA[
+
+                />
+
+            ]]>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number:"
+                    android:textSize="18dp" />
+
+
+                <EditText
+                    android:id="@+id/number2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="55dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specification:"
+                    android:textSize="18dp" />
+
+
+                <EditText
+                    android:id="@+id/specificationinput2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="18dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Roof 3"
+                android:textSize="18dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Roof Type:"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/areainput3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="80dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/number3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="55dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specification:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/specificationinput3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="18dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Roof 4"
+                android:textSize="18dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Roof Type:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/rooftypeinput4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/areainput4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="80dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/number4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="55dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specification:"
+                    android:textSize="18dp"/>
+
+
+                <EditText
+                    android:id="@+id/specificationinput4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="18dp"
+                    android:background="@drawable/myedittext"
+                    android:ems="10"
+                    android:hint=""
+                    android:paddingLeft="10dp" />/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+</LinearLayout>
+</ScrollView>

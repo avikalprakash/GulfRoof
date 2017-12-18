@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9ecec"
+    tools:context="com.example.lue.waterroofingmeasurement.MainActivity">
+
+
+    <Button
+        android:id ="@+id/push_button"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:text="SalesMan"
+        android:background="@drawable/buttonround"
+        android:padding="15dp"
+      android:drawableLeft="@drawable/salesman"
+        android:textColor="#060606"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_marginEnd="46dp"
+        android:layout_marginTop="123dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/buttonExit" />
+
+
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="55dp"
+        android:layout_marginEnd="16dp"
+        android:background="#545f81"
+        android:textColor="#faf9f9"
+        android:text="Exit"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:id="@+id/buttonExit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btncust"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/buttonround"
+        android:layout_marginTop="48dp"
+        android:text="Customer"
+        android:paddingLeft="10dp"
+        android:drawableLeft="@drawable/cust"
+        android:textStyle="bold"
+        android:layout_below="@+id/push_button"
+        android:layout_alignStart="@+id/push_button" />
+
+    <Button
+        android:id="@+id/btnAdmin"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/buttonround"
+        android:layout_marginTop="48dp"
+        android:text="Admin"
+        android:paddingLeft="10dp"
+        android:drawableLeft="@drawable/admin"
+        android:textStyle="bold"
+        android:layout_below="@+id/btncust"
+        android:layout_alignStart="@+id/push_button" />
+
+
+</RelativeLayout>
