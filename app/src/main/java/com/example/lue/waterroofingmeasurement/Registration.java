@@ -432,13 +432,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return provider;
     }
     private void registerForGPS() {
-      /*  Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setSpeedRequired(false);
-        criteria.setCostAllowed(true);*/
+
 
 
         mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
