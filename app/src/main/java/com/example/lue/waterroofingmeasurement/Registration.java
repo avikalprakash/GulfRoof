@@ -432,7 +432,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return provider;
     }
     private void registerForGPS() {
-
+//
 
 
         mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
