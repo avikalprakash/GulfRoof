@@ -50,7 +50,9 @@
         <activity android:name=".AdminRegister" />
         <activity android:name=".AdminLogin" />
         <activity android:name=".AdminForgotPassword" />
-        <activity android:name=".MapActivity" />
+        <activity android:name=".MapActivity">
+        </activity>
+        <activity android:name=".MapActivity2" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".ChooseOffer" />
         <activity android:name=".CustomerRegistration" />
@@ -61,7 +63,11 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".SalesOption"></activity>
+        <activity android:name=".SalesOption" />
+        <activity android:name=".ProfileInAdmin" />
+        <activity android:name=".Main2Activity">
+
+        </activity>
     </application>
 
 </manifest>

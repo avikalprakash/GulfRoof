@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +24,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
+import Adapter.CustomerItemDetails;
+import Adapter.CustomerListAdaptor;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -31,6 +36,9 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class SearchCustomer extends AppCompatActivity implements View.OnClickListener {
+    public static ArrayList<CustomerItemDetails> customerItemDetailses = new ArrayList<>();
+    ListView listCustomer;
+    CustomerListAdaptor customerListAdaptor;
     ImageView searchItem;
     String user_name,mobile, email;
     TextView emailText, usernameTxt, mobileTxt, emailTxt ;
@@ -40,19 +48,31 @@ public class SearchCustomer extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_customer);
+        listCustomer=(ListView)findViewById(R.id.listCustomer);
         searchItem=(ImageView)findViewById(R.id.searchItem);
         emailText=(TextView) findViewById(R.id.emailText);
-        usernameTxt=(TextView) findViewById(R.id.username);
+       /* usernameTxt=(TextView) findViewById(R.id.username);
         mobileTxt=(TextView) findViewById(R.id.mobile);
         emailTxt=(TextView) findViewById(R.id.email);
-        relative=(RelativeLayout)findViewById(R.id.relative);
+        relative=(RelativeLayout)findViewById(R.id.relative);*/
+        listCustomer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), EditCustomerDetails.class);
+                intent.putExtra("id", customerItemDetailses.get(i).getId());
+                intent.putExtra("lat", customerItemDetailses.get(i).getLat());
+                intent.putExtra("longitude", customerItemDetailses.get(i).getLang());
+                startActivity(intent);
+                finish();
+            }
+        });
         searchItem.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
      new SearchCustom().execute();
-        relative.setVisibility(View.INVISIBLE);
+
     }
 
 
@@ -72,6 +92,7 @@ public class SearchCustomer extends AppCompatActivity implements View.OnClickLis
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
+            customerItemDetailses.clear();
 
         }
 
@@ -82,7 +103,7 @@ public class SearchCustomer extends AppCompatActivity implements View.OnClickLis
 
             try {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost(SEARCH_CUSTOMER);
+                HttpPost httpPost = new HttpPost("http://gulfroof.com/api/get_search_list");
                 httpPost.setHeader("Content-type", "application/json");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("email", email_enter);
@@ -123,26 +144,32 @@ public class SearchCustomer extends AppCompatActivity implements View.OnClickLis
                 }else{
 
                     JSONArray jsonArray = objone.getJSONArray("message");
-                    for (int i=0; i<jsonArray.length(); i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String id=jsonObject.getString("id");
-                        user_name=jsonObject.getString("user_name");
-                        mobile=jsonObject.getString("mobile");
-                        email=jsonObject.getString("email");
-                        String fax=jsonObject.getString("fax");
-                        String land_line=jsonObject.getString("land_line");
-                        String block_no=jsonObject.getString("lat");
-                        String road_no=jsonObject.getString("longitude");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jobject = jsonArray.getJSONObject(i);
+                        CustomerItemDetails customerItemDetails = new CustomerItemDetails();
+                        customerItemDetails.setId(jobject.getString("id"));
+                        customerItemDetails.setUser_name(jobject.getString("user_name"));
+                        customerItemDetails.setMobile(jobject.getString("mobile"));
+                        customerItemDetails.setEmail(jobject.getString("email"));
+                        customerItemDetails.setAddress(jobject.getString("location"));
+                        customerItemDetails.setLang(jobject.getString("lat"));
+                        customerItemDetails.setLat(jobject.getString("longitude"));
+                        customerItemDetailses.add(customerItemDetails);
+                        // promotionDetailses.add(new PromotionDetails((JSONObject)jsonArray.get(i)));
                     }
-                    relative.setVisibility(View.VISIBLE);
+                   /* relative.setVisibility(View.VISIBLE);
                     usernameTxt.setText(user_name);
                     mobileTxt.setText(mobile);
-                    emailTxt.setText(email);
+                    emailTxt.setText(email);*/
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            customerListAdaptor = new CustomerListAdaptor(SearchCustomer.this, customerItemDetailses);
+            listCustomer.setAdapter(customerListAdaptor);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
         }
     }
 

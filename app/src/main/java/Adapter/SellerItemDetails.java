@@ -14,6 +14,10 @@ public class SellerItemDetails {
     String mobile="";
     String email="";
 
+    public SellerItemDetails() {
+
+    }
+
     public void setId(String id) {
         this.id = id;
     }

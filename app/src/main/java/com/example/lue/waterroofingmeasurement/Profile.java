@@ -205,6 +205,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         @Override
         protected String doInBackground(String... args) {
             String s = "";
+            String pass="";
             try {
                 HttpClient httpClient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(UPDATE_SELLER_INFO);
@@ -215,6 +216,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 jsonObject.accumulate("mobile", mobile_no);
                 jsonObject.accumulate("email", email_id);
                 jsonObject.accumulate("line", land_line);
+                jsonObject.accumulate("password", pass);
 
 
 
@@ -251,7 +253,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 }else{
 
                     String message = objone.getString("message");
+                    if (message.equals("") || message.equals("null")) {
+                        Toast.makeText(getApplicationContext(), "Update Successfully", Toast.LENGTH_LONG).show();
+                    }
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), Home.class));
+                    finish();
                 }
 
             } catch (JSONException e) {

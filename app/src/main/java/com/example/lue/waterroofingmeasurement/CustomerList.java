@@ -16,7 +16,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -29,6 +32,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import Adapter.CustomerItemDetails;
+import Adapter.CustomerListAdaptor;
 import Adapter.RecycleAdapter;
 import Adapter.ServiceHandler;
 import SetterGetter.ItemRecyclerObject;
@@ -39,10 +43,12 @@ import SetterGetter.ItemRecyclerObject;
 
 public class CustomerList extends AppCompatActivity implements CustomerListFragment2.OnListFragmentInteractionListener{
     RecycleAdapter madapter;
-    public static List<CustomerItemDetails> customerItemDetailses = new ArrayList<>();
+    public static ArrayList<CustomerItemDetails> customerItemDetailses = new ArrayList<>();
     ProgressDialog pDialog;
+    CustomerListAdaptor customerListAdaptor;
     SharedPreferences pref;
     String id;
+    ListView listCustomer;
     private static final int SHOW_PROCESS_DIALOG = 1;
     private static final int HIDE_PROCESS_DIALOG = 0;
     Context context;
@@ -52,6 +58,7 @@ public class CustomerList extends AppCompatActivity implements CustomerListFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_list);
+        listCustomer=(ListView)findViewById(R.id.listCustomer);
         pDialog = new ProgressDialog(CustomerList.this);
         pref = getSharedPreferences("MyPref", MODE_PRIVATE);
         editor = pref.edit();
@@ -59,18 +66,31 @@ public class CustomerList extends AppCompatActivity implements CustomerListFragm
         dialog = new Dialog(CustomerList.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.fill_dialog);
+        listCustomer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), EditCustomerDetails.class);
+                intent.putExtra("id", customerItemDetailses.get(i).getId());
+                intent.putExtra("lat", customerItemDetailses.get(i).getLat());
+                intent.putExtra("longitude", customerItemDetailses.get(i).getLang());
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         new CustomersList().execute();
 
     }
     @Override
     public void onListFragmentInteraction(CustomerItemDetails item) {
-        Intent intent = new Intent(getApplicationContext(), EditCustomerDetails.class);
+       /* Intent intent = new Intent(getApplicationContext(), EditCustomerDetails.class);
         intent.putExtra("id", item.getId());
         intent.putExtra("lat", item.getLat());
         intent.putExtra("longitude", item.getLang());
         startActivity(intent);
-        finish();
+        finish();*/
     }
     Handler handler=new Handler(new Handler.Callback() {
         @Override
@@ -88,14 +108,18 @@ public class CustomerList extends AppCompatActivity implements CustomerListFragm
             return false;
         }
     });
+
+
     private class CustomersList extends AsyncTask<Void, Void, Void>
     {
+        ProgressDialog pDialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog.setMessage("Loading...");
+            pDialog = new ProgressDialog(CustomerList.this);
+            pDialog.setMessage("loading...");
+            pDialog.setIndeterminate(false);
             pDialog.show();
-            pDialog.setCancelable(false);
             customerItemDetailses=new ArrayList<>();
         }
 
@@ -104,40 +128,37 @@ public class CustomerList extends AppCompatActivity implements CustomerListFragm
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall("http://gulfroof.com/api/get_customer_list", ServiceHandler.GET);
             if(json!=null)
-            {
                 try {
-                    JSONObject jsonObject=new JSONObject(json);
-                    boolean error=jsonObject.getBoolean("error");
+                    JSONObject jsonObject = new JSONObject(json);
+                    boolean error = jsonObject.getBoolean("error");
 
-                    if(!error)
-                    {
-                        JSONArray jsonArray=jsonObject.getJSONArray("message");
-                        for(int i=0;i<jsonArray.length();i++)
-                        {
-                            customerItemDetailses.add(new CustomerItemDetails((JSONObject)jsonArray.get(i)));
+                    if (!error) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("message");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jobject = jsonArray.getJSONObject(i);
+                            CustomerItemDetails customerItemDetails = new CustomerItemDetails();
+                            customerItemDetails.setId(jobject.getString("id"));
+                            customerItemDetails.setUser_name(jobject.getString("user_name"));
+                            customerItemDetails.setMobile(jobject.getString("mobile"));
+                            customerItemDetails.setEmail(jobject.getString("email"));
+                            customerItemDetails.setAddress(jobject.getString("location"));
+                            customerItemDetails.setLang(jobject.getString("lat"));
+                            customerItemDetails.setLat(jobject.getString("longitude"));
+                            customerItemDetailses.add(customerItemDetails);
+                            // promotionDetailses.add(new PromotionDetails((JSONObject)jsonArray.get(i)));
                         }
-                        if (customerItemDetailses.size()>0) {
 
-                            Collections.sort(customerItemDetailses, new Comparator<CustomerItemDetails>()
-                            {
-                                @Override
-                                public int compare(CustomerItemDetails lhs, CustomerItemDetails rhs) {
-                                    return (rhs.getId()).compareTo(lhs.getId());
-                                }
-                            });
-                        }
+
                     }
-                    CustomerListFragment2 paidItemFragment=new CustomerListFragment2();
-                    FragmentTransaction fm=getSupportFragmentManager().beginTransaction();
-                    fm.replace(R.id.customerList,paidItemFragment);
-                    fm.commitAllowingStateLoss();
-                } catch (JSONException e) {}
-            }
+                } catch (JSONException e) {
+                }
             return null;
         }
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            customerListAdaptor = new CustomerListAdaptor(CustomerList.this, customerItemDetailses);
+            listCustomer.setAdapter(customerListAdaptor);
             if (pDialog.isShowing())
                 pDialog.dismiss();
         }

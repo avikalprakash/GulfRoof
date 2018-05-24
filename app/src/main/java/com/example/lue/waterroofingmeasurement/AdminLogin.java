@@ -3,6 +3,7 @@ package com.example.lue.waterroofingmeasurement;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +35,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import Adapter.ReadResponseClass;
 import cz.msebera.android.httpclient.HttpEntity;
@@ -36,6 +51,7 @@ import static Adapter.ReadResponseClass.readadsResponse;
 public class AdminLogin extends AppCompatActivity implements View.OnClickListener {
     EditText inputusername,editPassword;
     TextView textForgot;
+    ProgressDialog pDialog;
 
     String ADMIN_LOGIN="http://gulfroof.lueinfoservices.com/admin-login";
     @Override
@@ -52,8 +68,11 @@ public class AdminLogin extends AppCompatActivity implements View.OnClickListene
             public void onClick(View view) {
                 String username = inputusername.getText().toString().trim();
                 String password = editPassword.getText().toString().trim();
-           //new LoginAdmin().execute();
-                new LoginAdmin().execute(username, password);
+
+             //   new LoginAdmin().execute(username, password);
+
+             //   populatedata();
+                adm();
 
             }
         });
@@ -148,4 +167,152 @@ public class AdminLogin extends AppCompatActivity implements View.OnClickListene
             }
         }
     }
+
+
+    public void populatedata(){
+        String username = inputusername.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+        pDialog = new ProgressDialog(AdminLogin.this);
+        // Showing progress dialog before making http request
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+
+        Map<String, String> postParam= new HashMap<String, String>();
+        // postParam.put("session_id", sessionid);
+        postParam.put("email", username);
+        postParam.put("password",password);
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                "http://gulfroof.com/api/admin-login", new JSONObject(postParam),
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject objone)
+                    {
+                        pDialog.dismiss();
+                        Log.d("tag", objone.toString());
+                        try {
+                            // JSONObject objone = new JSONObject(response);
+                            boolean error = objone.getBoolean("error");
+
+                            if(error){
+
+                            }else{
+
+                                JSONArray jsonArray = objone.getJSONArray("message");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+
+                                    JSONObject obj = jsonArray.getJSONObject(i);
+                                    String id = obj.getString("id");
+                                    String email = obj.getString("email");
+                                    Toast.makeText(getApplicationContext(), id+" "+email, Toast.LENGTH_LONG).show();
+
+                                    startActivity(new Intent(AdminLogin.this, SalesOption.class));
+                                    finish();
+                                }
+
+                            }
+
+                            //  adapter.notifyDataSetChanged();
+
+                        }catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pDialog.dismiss();
+                VolleyLog.d("tag", "Error: " + error.getMessage());
+                //  hideProgressDialog();
+            }
+        }) {
+
+            /**
+             * Passing some request headers
+             * */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+
+        };
+
+        jsonObjReq.setTag("tag");
+        // Adding request to request queue
+        RequestQueue queue = Volley.newRequestQueue(AdminLogin.this);
+        queue.add(jsonObjReq);
+
+    }
+
+ public  void adm(){
+     String username = inputusername.getText().toString().trim();
+     String password = editPassword.getText().toString().trim();
+        pDialog =new ProgressDialog(AdminLogin.this);
+        pDialog.setMessage("load...");
+        pDialog.show();
+
+     Map<String, String> postParam= new HashMap<String, String>();
+     // postParam.put("session_id", sessionid);
+     postParam.put("email", username);
+     postParam.put("password",password);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                "http://gulfroof.com/api/admin-login", new JSONObject(postParam),
+                new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("taggggggg", response.toString());
+                pDialog.dismiss();
+                try {
+                    // JSONObject objone = new JSONObject(response);
+                    boolean error = response.getBoolean("error");
+
+                    if(error){
+
+                    }else{
+
+                        JSONArray jsonArray = response.getJSONArray("message");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject obj = jsonArray.getJSONObject(i);
+                            String id = obj.getString("id");
+                            String email = obj.getString("email");
+                            Toast.makeText(getApplicationContext(), id+" "+email, Toast.LENGTH_LONG).show();
+
+                            startActivity(new Intent(AdminLogin.this, SalesOption.class));
+                            finish();
+                        }
+
+                    }
+
+                    //  adapter.notifyDataSetChanged();
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<String, String>();
+                hashMap.put("content-value","application/json ; utf-8");
+                return hashMap;
+            }
+        };
+       RequestQueue requestQueue = Volley.newRequestQueue(AdminLogin.this);
+       requestQueue.add(jsonObjectRequest);
+ }
 }

@@ -133,6 +133,7 @@
                 android:id="@+id/specificationcost"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
+                android:maxLength="8"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
@@ -343,6 +344,7 @@
                         android:background="@drawable/myedittext"
                         android:ems="10"
                         android:hint=""
+                        android:maxLength="8"
                         android:paddingLeft="10dp" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -549,6 +551,7 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/myedittext"
                         android:ems="10"
+                        android:maxLength="8"
                         android:hint=""
                         android:paddingLeft="10dp" />
                     <TextView
@@ -765,6 +768,7 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/myedittext"
                         android:ems="10"
+                        android:maxLength="8"
                         android:hint=""
                         android:paddingLeft="10dp" />
                     <TextView
@@ -975,6 +979,7 @@
                         android:background="@drawable/myedittext"
                         android:ems="10"
                         android:hint=""
+                        android:maxLength="8"
                         android:paddingLeft="10dp" />
                     <TextView
                         android:layout_width="wrap_content"

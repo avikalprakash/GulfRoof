@@ -35,10 +35,11 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 public class Login extends AppCompatActivity {
 
     EditText musernme,mpassword;
-    UserSessionManager session;
+  //  UserSessionManager session;
     String email;
     String user_name;
     String mobile;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         Button btnlogin=(Button)findViewById(R.id.btnlogin);
-        session = new UserSessionManager(getApplicationContext());
+       // session = new UserSessionManager(getApplicationContext());
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +129,7 @@ public class Login extends AppCompatActivity {
                     JSONArray jsonArray = objone.getJSONArray("message");
                     for (int i=0; i<jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String id = jsonObject.getString("id");
+                        id = jsonObject.getString("id");
                         user_name = jsonObject.getString("user_name");
                         mobile = jsonObject.getString("mobile");
                         email = jsonObject.getString("email");
@@ -136,10 +137,11 @@ public class Login extends AppCompatActivity {
 
                     }
                    // Intent i=new Intent(Login.this,Home.class);
-                    session.createUserLoginSession(username);
+                   // session.createUserLoginSession(username);
                     SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
                     SharedPreferences.Editor editor2 = pref.edit();
                     editor2.putString("seller_email_id", email);
+                    editor2.putString("id", id);
                     editor2.putString("seller_name", user_name);
                     editor2.putString("seller_contact", mobile);
                     editor2.commit();

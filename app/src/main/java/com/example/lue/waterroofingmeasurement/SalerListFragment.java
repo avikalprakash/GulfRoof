@@ -10,8 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lue.waterroofingmeasurement.dummy.DummyContent;
-import com.example.lue.waterroofingmeasurement.dummy.DummyContent.DummyItem;
+
 
 import java.util.List;
 

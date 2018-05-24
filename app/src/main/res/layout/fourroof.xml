@@ -184,6 +184,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/myedittext"
                 android:ems="10"
+                android:maxLength="5"
+                android:enabled="false"
                 android:hint="Cost Roof"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"

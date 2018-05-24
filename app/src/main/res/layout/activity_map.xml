@@ -10,13 +10,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/autoCompleteTextView"
         android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:layout_toLeftOf="@+id/assressSearch"
         android:hint="Enter Place to search"/>
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/assressSearch"
-        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/selectAddress"
         android:src="@drawable/searchitems"/>
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:text="ok"
+        android:layout_marginTop="5dp"
+        android:textColor="#ffffff"
+        android:background="#545f81"
+        android:id="@+id/selectAddress"
+        android:textSize="12sp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"/>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

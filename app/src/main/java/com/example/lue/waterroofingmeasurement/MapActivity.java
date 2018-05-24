@@ -80,10 +80,20 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     String state="";
     String country="";
     String address1="";
+    String project_name="";
+    String user_name="";
+    String mobile="";
+    String email="";
+    String fax_s="";
+    String landline_s="";
+    String house="";
+    String road_s="";
+    String block_s="";
     MarkerOptions markerOptions;
     Button search;
     AutoCompleteTextView mSearch;
     ImageView assressSearch;
+    Button selectAddress;
     //,mdistrict,mcittvilag,mblock;
 
     private ProgressDialog pDialog;
@@ -101,11 +111,23 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_map);
         mMapView = (MapView)findViewById(R.id.map);
         mSearch = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        selectAddress = (Button)findViewById(R.id.selectAddress);
         mSearch.setAdapter(new GooglePlacesAutocompleteAdapter(getApplicationContext(), R.layout.autocomplete));
         mSearch.setOnItemClickListener(this);
         assressSearch=(ImageView)findViewById(R.id.assressSearch);
         assressSearch.setOnClickListener(this);
+        selectAddress.setOnClickListener(this);
         context=this;
+        project_name=getIntent().getStringExtra("project_name");
+        user_name=getIntent().getStringExtra("user_name");
+        mobile=getIntent().getStringExtra("mobile");
+        email=getIntent().getStringExtra("email");
+        fax_s=getIntent().getStringExtra("fax");
+        landline_s=getIntent().getStringExtra("landline");
+        house=getIntent().getStringExtra("house");
+        road_s=getIntent().getStringExtra("road");
+        block_s=getIntent().getStringExtra("block");
+
         alert = new AlertDialog.Builder(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait for location");
@@ -129,10 +151,6 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         } else if (permission.result == 1) {
             registerForGPS();
         }
-
-
-
-
     }
 
     @Override
@@ -203,8 +221,6 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
       Toast.makeText(getApplicationContext(), String.valueOf(l), Toast.LENGTH_LONG).show();
-
-
     }
 
     @Override
@@ -215,6 +231,30 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
                 GeocodingLocation locationAddress = new GeocodingLocation();
                 locationAddress.getAddressFromLocation(address,
                         getApplicationContext(), new GeocoderHandler());
+                break;
+
+            case R.id.selectAddress:
+                Intent i= new Intent(getApplicationContext(), Registration.class);
+                i.putExtra("pincode", pincode);
+                i.putExtra("street", street);
+                i.putExtra("address1", address1);
+                i.putExtra("state", state);
+                i.putExtra("city", city);
+                i.putExtra("country", country);
+                i.putExtra("lat", latitude);
+                i.putExtra("long", longitude);
+
+                i.putExtra("project_name", project_name);
+                i.putExtra("user_name", user_name);
+                i.putExtra("mobile", mobile);
+                i.putExtra("email", email);
+                i.putExtra("fax", fax_s);
+                i.putExtra("landline", landline_s);
+                i.putExtra("house", house);
+                i.putExtra("road", road_s);
+                i.putExtra("block", block_s);
+                startActivity(i);
+                finish();
                 break;
         }
     }
@@ -505,6 +545,17 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         i.putExtra("country", country);
         i.putExtra("lat", latitude);
         i.putExtra("long", longitude);
+
+        i.putExtra("project_name", project_name);
+        i.putExtra("user_name", user_name);
+        i.putExtra("mobile", mobile);
+        i.putExtra("email", email);
+        i.putExtra("fax", fax_s);
+        i.putExtra("landline", landline_s);
+        i.putExtra("house", house);
+        i.putExtra("road", road_s);
+        i.putExtra("block", block_s);
         startActivity(i);
+        finish();
     }
 }

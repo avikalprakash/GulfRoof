@@ -97,13 +97,14 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private GoogleMap googleMap;
     String giiglemap_adress;
     LocationAddress locationAddress;
-    EditText house_noText, road_no, block_no, address;
+    EditText house_noText, road_no, block_no, address, newprojectname;
     String location="";
     String street="";
     String city="";
     String state="";
     String country="";
     String user_name="";
+    String project_name="";
     String mobile="";
     String email="";
     String fax_s="";
@@ -138,6 +139,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         editmail = (EditText) findViewById(R.id.customeremail);
         editfax = (EditText) findViewById(R.id.customerfax);
         editlandline = (EditText) findViewById(R.id.customerlandline);
+        newprojectname = (EditText) findViewById(R.id.newprojectname);
        // edithouseno = (EditText) findViewById(R.id.customerhouseno);
        // editroadno = (EditText) findViewById(R.id.customerroadno);
        // editblockno = (EditText) findViewById(R.id.customerblockno);
@@ -173,10 +175,20 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
            city=getIntent().getStringExtra("city");
            country=getIntent().getStringExtra("country");
            pincode=getIntent().getStringExtra("pincode");
+
+           project_name=getIntent().getStringExtra("project_name");
+           user_name=getIntent().getStringExtra("user_name");
+           mobile=getIntent().getStringExtra("mobile");
+           email=getIntent().getStringExtra("email");
+           fax_s=getIntent().getStringExtra("fax");
+           landline_s=getIntent().getStringExtra("landline");
+           house=getIntent().getStringExtra("house");
+           road_s=getIntent().getStringExtra("road");
+           block_s=getIntent().getStringExtra("block");
            address.setText(location+", "+street+", "+city+", "+state+", "+country+", "+pincode);
          //  Toast.makeText(getApplicationContext(), pincode+street+city+state+country, Toast.LENGTH_LONG).show();
        }
-        sharedpreferences = context.getSharedPreferences("MyPref", MODE_PRIVATE);
+       /* sharedpreferences = context.getSharedPreferences("MyPref", MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
         sharedpreferences=getSharedPreferences(MyPref,Context.MODE_PRIVATE);
@@ -187,7 +199,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         landline_s = sharedpreferences.getString(LANDLINE, "");
         house = sharedpreferences.getString(HOUSE, "");
         road_s = sharedpreferences.getString(ROAD, "");
-        block_s = sharedpreferences.getString(BLOCK, "");
+        block_s = sharedpreferences.getString(BLOCK, "");*/
+        if (user_name!=null) {
+            newprojectname.setText(project_name);
+        }
         if (user_name!=null) {
             editcustname.setText(user_name);
         }
@@ -222,7 +237,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 new Register().execute();
                // startActivity(new Intent(getApplicationContext(), OneRoof.class));
                 sharedpreferences=getSharedPreferences(MyPref,Context.MODE_PRIVATE);
-                editor.clear().commit();
+//                editor.clear().commit();
                 break;
             case R.id.getlocation:
               /*  permission = new MMPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
@@ -236,6 +251,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     registerForGPS();
                 }*/
                 user_name = editcustname.getText().toString().trim();
+                project_name = newprojectname.getText().toString().trim();
                 mobile = editmobile.getText().toString().trim();
                 email= editmail.getText().toString().trim();
                 fax_s = editfax.getText().toString().trim();
@@ -246,7 +262,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
 
 
-                editor.putString("user_name", user_name);
+               /* editor.putString("user_name", user_name);
                 editor.putString("mobile", mobile);
                 editor.putString("email", email);
                 editor.putString("fax", fax_s);
@@ -254,9 +270,19 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 editor.putString("house", house);
                 editor.putString("road", road_s);
                 editor.putString("block", block_s);
-                editor.commit();
+                editor.commit();*/
 
-              startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                Intent i = new Intent(getApplicationContext(), MapActivity.class);
+                i.putExtra("project_name", project_name);
+                i.putExtra("user_name", user_name);
+                i.putExtra("mobile", mobile);
+                i.putExtra("email", email);
+                i.putExtra("fax", fax_s);
+                i.putExtra("landline", landline_s);
+                i.putExtra("house", house);
+                i.putExtra("road", road_s);
+                i.putExtra("block", block_s);
+                startActivity(i);
                 finish();
                   //  registerForGPS();
                 break;
@@ -284,7 +310,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     class Register extends AsyncTask<String, Void, String> {
 
         private ProgressDialog pDialog;
-
+        String project_name = newprojectname.getText().toString().trim();
         String user_name = editcustname.getText().toString().trim();
         String mobile = editmobile.getText().toString().trim();
         String  email= editmail.getText().toString().trim();
@@ -318,6 +344,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 HttpPost httpPost = new HttpPost(REGISTER_URL);
                 httpPost.setHeader("Content-type", "application/json");
                 JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("project_name", project_name);
                 jsonObject.accumulate("user_name", user_name);
                 jsonObject.accumulate("mobile", mobile);
                 jsonObject.accumulate("email", email);
@@ -569,6 +596,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        editor.clear().commit();
+     //   editor.clear().commit();
     }
 }

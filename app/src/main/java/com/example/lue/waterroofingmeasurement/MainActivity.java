@@ -22,10 +22,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonAdmin = (Button) findViewById(R.id.btnAdmin);
         buttonAdmin.setOnClickListener(this);
         buttonExit.setOnClickListener(this);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, Home.class);
+                Intent i = new Intent(MainActivity.this, Login.class);
                 startActivity(i);
 
             }

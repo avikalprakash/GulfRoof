@@ -32,8 +32,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class EditCustomerDetails extends AppCompatActivity implements View.OnClickListener {
-    String id, username, mobile, email, fax, land_line, houseNo, roadNo, blockNo, address, lat, longitude;
-    EditText newcustomername, newmobileno, customeremail, customerfax, customerlandline, house_no, road_no, block_no, location;
+    String id, projectname, username, mobile, email, fax, land_line, houseNo, roadNo, blockNo, address, lat, longitude;
+    EditText newprojectname, newcustomername, newmobileno, customeremail, customerfax, customerlandline, house_no, road_no, block_no, location;
     String GET_CUSTOMER_INFO="http://gulfroof.com/api/edit_customer";
     String UPDATE_CUSTOMER_INFO="http://gulfroof.com/api/update_customer";
     String DELETE_CUSTOMER_INFO="http://gulfroof.com/api/delete_customer";
@@ -43,6 +43,7 @@ public class EditCustomerDetails extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_customer_details);
+        newprojectname=(EditText)findViewById(R.id.newprojectname);
         newcustomername=(EditText)findViewById(R.id.newcustomername);
         newmobileno=(EditText)findViewById(R.id.newmobileno);
         customeremail=(EditText)findViewById(R.id.customeremail);
@@ -160,6 +161,7 @@ public class EditCustomerDetails extends AppCompatActivity implements View.OnCli
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         id=jsonObject.getString("id");
+                        projectname=jsonObject.getString("project_name");
                         username=jsonObject.getString("user_name");
                         mobile=jsonObject.getString("mobile");
                         email=jsonObject.getString("email");
@@ -171,6 +173,11 @@ public class EditCustomerDetails extends AppCompatActivity implements View.OnCli
                         roadNo=jsonObject.getString("road_no");
                         blockNo=jsonObject.getString("block_no");
                         address=jsonObject.getString("location");
+                    }
+                    if (projectname.equals("null")){
+                        newprojectname.setText("");
+                    }else {
+                        newprojectname.setText(projectname);
                     }
                     newcustomername.setText(username);
                     newmobileno.setText(mobile);
@@ -212,7 +219,7 @@ public class EditCustomerDetails extends AppCompatActivity implements View.OnCli
     class UpdateCustomerInfo extends AsyncTask<String, Void, String> {
 
         private ProgressDialog pDialog;
-
+        String project_name = newprojectname.getText().toString().trim();
         String customer_name = newcustomername.getText().toString().trim();
         String customer_mobile = newmobileno.getText().toString().trim();
         String customer_email = customeremail.getText().toString().trim();
@@ -243,6 +250,7 @@ public class EditCustomerDetails extends AppCompatActivity implements View.OnCli
                 httpPost.setHeader("Content-type", "application/json");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("id", id);
+                jsonObject.accumulate("project_name", project_name);
                 jsonObject.accumulate("user_name", customer_name);
                 jsonObject.accumulate("mobile", customer_mobile);
                 jsonObject.accumulate("email", customer_email);

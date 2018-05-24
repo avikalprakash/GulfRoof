@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,19 +40,20 @@ public class Roof3 extends AppCompatActivity {
     private SharedPreferences prefsFullSpecification;
     CheckBox chk1,chk2,chk3,chk4,chk5,chk6,chk7,chk8,chk9,chk10,chk11;
     Button btnroof3,moreroof3;
-    Double c1=2.500;
-    Double c2=3.300;
-    Double c3=3.300;
-    Double c4=2.000;
-    Double c5=3.000;
-    Double c6=0.300;
-    Double c7=5.000;
-    Double c8=4.300;
-    Double c9=4.300;
-    Double c10=2.500;
-    Double c11=2.500;
-    Double totalC=0.0;
-    String totalSpecification;
+    float c1=2.500f;
+    float c2=3.300f;
+    float c3=3.300f;
+    float c4=2.000f;
+    float c5=3.000f;
+    float c6=0.300f;
+    float c7=5.000f;
+    float c8=4.300f;
+    float c9=4.300f;
+    float c10=2.500f;
+    float c11=2.500f;
+    float totalC=0.0f;
+    int z=2;
+    String totalSpecification="";
     String speci1="TA 1";
     String speci2="LW 75";
     String speci3="PU 35";
@@ -64,7 +66,7 @@ public class Roof3 extends AppCompatActivity {
     String speci10="LqM";
     String speci11="Lqrm";
 
-    String TotalSpecification;
+    String TotalSpecification="";
     String speciA="Torch Applied membrane single layer";
     String speciB="Light weight foam screed 75mm";
     String speciC="Polyurethane foam 35mm";
@@ -116,7 +118,7 @@ public class Roof3 extends AppCompatActivity {
         String  ch10 = sharedpreferences.getString(C10, "");
         String  ch11 = sharedpreferences.getString(C11, "");
 
-        if (!ch1.equals("")){
+     /*   if (!ch1.equals("")){
             c1= Double.parseDouble(ch1);
         }
         if (!ch2.equals("")){
@@ -148,7 +150,7 @@ public class Roof3 extends AppCompatActivity {
         }
         if (!ch11.equals("")){
             c11= Double.parseDouble(ch11);
-        }
+        }*/
 
         chk1 = (CheckBox) findViewById(R.id.checkBox12);
         chk2 = (CheckBox) findViewById(R.id.checkBox13);
@@ -165,987 +167,336 @@ public class Roof3 extends AppCompatActivity {
 
 
 
-        chk1.setOnClickListener(new View.OnClickListener() {
+        chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int m=0;
-                m++;
-
-                if (chk1.isChecked()&& m>0) {
-                    totalC = c1;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = speci1;
-                    TotalSpecification = speciA + "(" + String.valueOf(c1) + "/Sq.m BD)";
-
-
-                } if(!chk1.isChecked()) {
-                    m--;
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c1;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci1;
+                        TotalSpecification =speciA + "(" + String.valueOf(c1) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci1;
+                        TotalSpecification =TotalSpecification+", "+ speciA + "(" + String.valueOf(c1) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
                     totalC = totalC - c1;
-                    codst3.setText(String.valueOf(totalC));
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci1, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciA + "(" + String.valueOf(c1) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciA, "").replace("(", "").replace(String.valueOf(c1), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk2.isChecked()&& m>0) {
-
-                    totalC = totalC + c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci2;
-                    TotalSpecification = TotalSpecification + ", " + speciB + "(" + String.valueOf(c2) + "/Sq.m BD)";
-                    String s = "v";
-
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if (chk3.isChecked()&& m>0) {
-                    totalC = totalC + c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci3;
-                    TotalSpecification = TotalSpecification + ", " + speciC + "(" + String.valueOf(c3) + "/Sq.m BD)";
-
-                }
-                if (chk4.isChecked()&& m>0) {
-                    totalC = totalC + c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci4;
-                    TotalSpecification = TotalSpecification + ", " + speciD + "(" + String.valueOf(c4) + "/Sq.m BD)";
-                }
-                if (chk5.isChecked()&& m>0) {
-                    totalC = totalC + c5;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci5;
-                    TotalSpecification = TotalSpecification + ", " + speciE + "(" + String.valueOf(c5) + "/Sq.m BD)";
-                }
-                if (chk6.isChecked()&& m>0) {
-                    totalC = totalC + c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci6;
-                    TotalSpecification = TotalSpecification + ", " + speciF + "(" + String.valueOf(c6) + "/Sq.m BD)";
-                }
-                if (chk7.isChecked()&& m>0) {
-                    totalC = totalC + c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci7;
-                    TotalSpecification = TotalSpecification + ", " + speciG + "(" + String.valueOf(c7) + "/Sq.m BD)";
-                }
-                if (chk8.isChecked()&& m>0) {
-                    totalC = totalC + c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci8;
-                    TotalSpecification = TotalSpecification + ", " + speciH + "(" + String.valueOf(c8) + "/Sq.m BD)";
-                }
-                if (chk9.isChecked()&& m>0) {
-                    totalC = totalC + c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci9;
-                    TotalSpecification = TotalSpecification + ", " + speciI + "(" + String.valueOf(c9) + "/Sq.m BD)";
-                }
-                if (chk10.isChecked()&& m>0) {
-                    totalC = totalC + c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci10;
-                    TotalSpecification = TotalSpecification + ", " + speciJ + "(" + String.valueOf(c10) + "/Sq.m BD)";
-                }
-                if (chk11.isChecked()&& m>0) {
-                    totalC = totalC + c11;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci11;
-                    TotalSpecification = TotalSpecification + ", " + speciK + "(" + String.valueOf(c11) + "/Sq.m BD)";
-                }
-
-              /*  chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
-
         });
-
-        chk2.setOnClickListener(new View.OnClickListener() {
+        chk2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int i = 0;
-                i++;
-                if (chk2.isChecked()&& i>0) {
-                    totalC=c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci2;
-                    TotalSpecification=speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c2;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci2;
+                        TotalSpecification = speciB + "(" + String.valueOf(c2) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci2;
+                        TotalSpecification =TotalSpecification+", "+ speciB + "(" + String.valueOf(c2) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c2;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci2, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciB + "(" + String.valueOf(c2) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciB, "").replace("(", "").replace(String.valueOf(c2), "")
+                            .replace("/Sq.m BD)", "");
                 }
-
-                if(!chk2.isChecked()) {
-                    i--;
-                    totalC=totalC-c2;
-                    codst3.setText(String.valueOf(totalC));
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if (chk1.isChecked()&& i>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
-                    String s="v";
-
-
-                }
-                if ( chk3.isChecked()&& i>0) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked()&& i>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked()&& i>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked()&& i>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked()&& i>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked()&& i>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked()&& i>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked() && i>0) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked() && i>0) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }
-                /*chk1.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-        chk3.setOnClickListener(new View.OnClickListener() {
+        chk3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int j=0;
-                j++;
-                if (chk3.isChecked() && j>0) {
-                    totalC=c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci3;
-                    TotalSpecification=speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }if (!chk3.isChecked()){
-                    j--;
-                    totalC=totalC-c3;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c3;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci3;
+                        TotalSpecification = speciC + "(" + String.valueOf(c1) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci3;
+                        TotalSpecification =TotalSpecification+", "+ speciC + "(" + String.valueOf(c3) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c3;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci3, "").replace(",", "");
+                    //    TotalSpecification =TotalSpecification+", "+ speciC + "(" + String.valueOf(c3) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciC, "").replace("(", "").replace(String.valueOf(c3), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked() && j>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
-                }
-                if ( chk2.isChecked() && j>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked() && j>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+" /Sq.m BD)";
-                }
-                if (chk5.isChecked() && j>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked() && j>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked() && j>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD )";
-                }
-                if (chk8.isChecked() && j>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked() && j>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked() && j>0 ) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked()  && j>0) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
             }
-
-
-       /* chk1.setChecked(false);
-        chk2.setChecked(false);
-        chk4.setChecked(false);
-        chk5.setChecked(false);
-        chk6.setChecked(false);
-        chk7.setChecked(false);
-        chk8.setChecked(false);
-        chk9.setChecked(false);
-        chk10.setChecked(false);
-        chk11.setChecked(false);*/
-
-
         });
-
-        chk4.setOnClickListener(new View.OnClickListener() {
+        chk4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int k=0;
-                k++;
-                if (chk4.isChecked() && k>0) {
-                    totalC=c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci4;
-                    TotalSpecification=speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }if (! chk4.isChecked()){
-                    k--;
-                    totalC=totalC-c4;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c4;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci4;
+                        TotalSpecification = speciD + "(" + String.valueOf(c4) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci4;
+                        TotalSpecification =TotalSpecification+", "+ speciD + "(" + String.valueOf(c4) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c4;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci4, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciD + "(" + String.valueOf(c4) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciD, "").replace("(", "").replace(String.valueOf(c4), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked() && k>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked() && k>0) {
-                    totalC=totalC+c2;
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked() && k>0) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked() && k>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked() && k>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked() && k>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked() && k>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked() && k>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked() && k>0) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked()  && k>0) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }
-                /*chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-
-        chk5.setOnClickListener(new View.OnClickListener() {
+        chk5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int l=0;
-                l++;
-                if (chk5.isChecked()&& l>0) {
-                    totalC=c5;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci5;
-                    TotalSpecification=speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }if (! chk5.isChecked()){
-                    l--;
-                    totalC=totalC-c5;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c5;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci5;
+                        TotalSpecification = speciF + "(" + String.valueOf(c5) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci5;
+                        TotalSpecification =TotalSpecification+", "+ speciF + "(" + String.valueOf(c5) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c5;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci5, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciF + "(" + String.valueOf(c5) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciE, "").replace("(", "").replace(String.valueOf(c5), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked()&& l>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked()&& l>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked()&& l>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked()&& l>0) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked()&& l>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked()&& l>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked()&& l>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked()&& l>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked() && l>0) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked() && l>0) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }
-                /*chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-        chk6.setOnClickListener(new View.OnClickListener() {
+        chk6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int n=0;
-                n++;
-                if (chk6.isChecked()&& n>0) {
-                    totalC=c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci6;
-                    TotalSpecification=speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }if (! chk6.isChecked()){
-                    n--;
-                    totalC=totalC-c6;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c6;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci6;
+                        TotalSpecification = speciF + "(" + String.valueOf(c6) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci6;
+                        TotalSpecification =TotalSpecification+", "+ speciF + "(" + String.valueOf(c6) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c6;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci6, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciF + "(" + String.valueOf(c6) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciF, "").replace("(", "").replace(String.valueOf(c6), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked()&& n>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked()&& n>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked()&& n>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked()&& n>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked()&& n>0) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked()&& n>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked()&& n>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked()&& n>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked() && n>0) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked() && n>0) {
-                    totalC = c11 + totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification = totalSpecification + ", " + speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }
-              /*  chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-
-        chk7.setOnClickListener(new View.OnClickListener() {
+        chk7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int o=0;
-                o++;
-                if (chk7.isChecked() && o>0) {
-                    totalC=c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci7;
-                    TotalSpecification=speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }if (!chk7.isChecked()){
-                    o--;
-                    totalC=totalC-c7;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c7;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci7;
+                        TotalSpecification = speciG + "(" + String.valueOf(c7) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci7;
+                        TotalSpecification =TotalSpecification+", "+ speciG + "(" + String.valueOf(c7) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c7;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci7, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciG + "(" + String.valueOf(c7) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciG, "").replace("(", "").replace(String.valueOf(c7), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked() && o>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked() && o>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked() && o>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked() && o>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked() && o>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked() && o>0) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked() && o>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked() && o>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked() && o>0 ) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked() && o>0 ) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }
-            /*    chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-
-        chk8.setOnClickListener(new View.OnClickListener() {
+        chk8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int p=0;
-                p++;
-                if (chk8.isChecked() && p>0) {
-                    totalC=c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci8;
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }if (!chk8.isChecked()){
-                    p--;
-                    totalC=totalC-c8;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c8;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci8;
+                        TotalSpecification =speciH + "(" + String.valueOf(c8) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci8;
+                        TotalSpecification =TotalSpecification+", "+ speciH + "(" + String.valueOf(c8) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c8;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci8, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciH + "(" + String.valueOf(c8) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciH, "").replace("(", "").replace(String.valueOf(c8), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked() && p>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked() && p>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked() && p>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked() && p>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked() && p>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked() && p>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked() && p>0) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked() && p>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked()  && p>0) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked()  && p>0) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-              /*  chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-
-        chk9.setOnClickListener(new View.OnClickListener() {
+        chk9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int q=0;
-                q++;
-                if (chk9.isChecked() && q>0) {
-                    totalC=c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci9;
-                    TotalSpecification=speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }if (!chk9.isChecked()){
-                    q--;
-                    totalC=totalC-c9;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c9;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci9;
+                        TotalSpecification =speciI + "(" + String.valueOf(c9) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci9;
+                        TotalSpecification =TotalSpecification+", "+ speciI + "(" + String.valueOf(c9) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c9;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci9, "").replace(",", "");
+                    //   TotalSpecification =TotalSpecification+", "+ speciI + "(" + String.valueOf(c9) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciI, "").replace("(", "").replace(String.valueOf(c9), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked() && q>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked() && q>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked() && q>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked() && q>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked() && q>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked() && q>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked() && q>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked() && q>0) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked()  && q>0) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked() && q>0 ) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }
-               /* chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk10.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-
-
-        chk10.setOnClickListener(new View.OnClickListener() {
+        chk10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int r=0;
-                r++;
-                if (chk10.isChecked() && r>0) {
-                    totalC=c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci10;
-                    TotalSpecification=speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }if (!chk10.isChecked()){
-                    totalC=totalC-c10;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c10;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci10;
+                        TotalSpecification = speciJ + "(" + String.valueOf(c10) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci10;
+                        TotalSpecification =TotalSpecification+", "+ speciJ + "(" + String.valueOf(c10) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c10;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci10, "").replace(",", "");
+                    //  TotalSpecification =TotalSpecification+", "+ speciJ + "(" + String.valueOf(c10) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciJ, "").replace("(", "").replace(String.valueOf(c10), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked() && r>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked() && r>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked() && r>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked() && r>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked() && r>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked() && r>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked() && r>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked() && r>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked() && r>0 ) {
-                    totalC=totalC+c3;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-                if (chk11.isChecked()  && r>0) {
-                    totalC=c11+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci11;
-                    TotalSpecification=TotalSpecification+", "+speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }
-               /* chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk11.setChecked(false);*/
             }
         });
-        chk11.setOnClickListener(new View.OnClickListener() {
+        chk11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int s=0;
-                s++;
-                if (chk11.isChecked() && s>0) {
-                    totalC=c11;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=speci11;
-                    TotalSpecification=speciK+"("+String.valueOf(c11)+"/Sq.m BD)";
-                }if (!chk11.isChecked()){
-                    s--;
-                    totalC=totalC-c11;
-                    codst3.setText(String.valueOf(totalC));
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    z++;
+                    totalC = totalC+c11;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    if (totalSpecification.equals("")){
+                        totalSpecification =speci11;
+                        TotalSpecification =speciK + "(" + String.valueOf(c11) + "/Sq.m BD)";
+                    }else {
+                        totalSpecification =totalSpecification+", "+ speci11;
+                        TotalSpecification =TotalSpecification+", "+ speciK + "(" + String.valueOf(c11) + "/Sq.m BD)";
+                    }
+                }else if (!compoundButton.isChecked()){
+                    z--;
+                    totalC = totalC - c11;
+                    String fTotalC = String.format("%.03f", totalC);
+                    codst3.setText(String.valueOf(fTotalC));
+                    totalSpecification= totalSpecification.replace(speci11, "").replace(",", "");
+                    // TotalSpecification =TotalSpecification+", "+ speciK + "(" + String.valueOf(c11) + "/Sq.m BD)";
+                    TotalSpecification =TotalSpecification.replace(speciK, "").replace("(", "").replace(String.valueOf(c11), "")
+                            .replace("/Sq.m BD)", "");
                 }
-                if (chk1.isChecked() && s>0) {
-                    totalC=c1+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci1;
-                    TotalSpecification=TotalSpecification+", "+speciA+"("+String.valueOf(c1)+"/Sq.m BD)";
+                if (z==2){
+                    codst3.getText().clear();
                 }
-                if ( chk2.isChecked() && s>0) {
-                    totalC=totalC+c2;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci2;
-                    TotalSpecification=TotalSpecification+", "+speciB+"("+String.valueOf(c2)+"/Sq.m BD)";
-                }
-                if (chk4.isChecked() && s>0) {
-                    totalC=totalC+c4;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci4;
-                    TotalSpecification=TotalSpecification+", "+speciD+"("+String.valueOf(c4)+"/Sq.m BD)";
-                }
-                if (chk5.isChecked() && s>0) {
-                    totalC=totalC+c5;
-                    codst3.setText(String.valueOf( totalC));
-                    totalSpecification=totalSpecification+", "+speci5;
-                    TotalSpecification=TotalSpecification+", "+speciE+"("+String.valueOf(c5)+"/Sq.m BD)";
-                }
-                if (chk6.isChecked() && s>0) {
-                    totalC=totalC+c6;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci6;
-                    TotalSpecification=TotalSpecification+", "+speciF+"("+String.valueOf(c6)+"/Sq.m BD)";
-                }
-                if (chk7.isChecked() && s>0) {
-                    totalC=totalC+c7;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci7;
-                    TotalSpecification=TotalSpecification+", "+speciG+"("+String.valueOf(c7)+"/Sq.m BD)";
-                }
-                if (chk8.isChecked() && s>0) {
-                    totalC=totalC+c8;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci8;
-                    TotalSpecification=TotalSpecification+", "+speciH+"("+String.valueOf(c8)+"/Sq.m BD)";
-                }
-                if (chk9.isChecked() && s>0) {
-                    totalC=totalC+c9;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci9;
-                    TotalSpecification=TotalSpecification+", "+speciI+"("+String.valueOf(c9)+"/Sq.m BD)";
-                }
-                if (chk10.isChecked() && s>0 ) {
-                    totalC=totalC+c10;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci10;
-                    TotalSpecification=TotalSpecification+", "+speciJ+"("+String.valueOf(c10)+"/Sq.m BD)";
-                }
-                if (chk3.isChecked() && s>0 ) {
-                    totalC=c3+totalC;
-                    codst3.setText(String.valueOf(totalC));
-                    totalSpecification=totalSpecification+", "+speci3;
-                    TotalSpecification=TotalSpecification+", "+speciC+"("+String.valueOf(c3)+"/Sq.m BD)";
-                }
-               /* chk1.setChecked(false);
-                chk2.setChecked(false);
-                chk3.setChecked(false);
-                chk4.setChecked(false);
-                chk5.setChecked(false);
-                chk6.setChecked(false);
-                chk7.setChecked(false);
-                chk8.setChecked(false);
-                chk9.setChecked(false);
-                chk10.setChecked(false);*/
             }
         });
-        
         
 btnroof3.setOnClickListener(new View.OnClickListener() {
     @Override

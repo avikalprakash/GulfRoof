@@ -18,14 +18,14 @@ import Adapter.UserSessionManager;
 public class Home extends AppCompatActivity implements View.OnClickListener {
 TextView txtmakeoffer,txtspef,txtsetting,txtcustomerlist;
     TextView layoutMakeOffer, customerListLayout, layoutSpecification;
-    UserSessionManager session;
+  //  UserSessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        session = new UserSessionManager(getApplicationContext());
+      /*  session = new UserSessionManager(getApplicationContext());
         if (session.checkLogin())
-            finish();
+            finish();*/
         layoutMakeOffer=(TextView)findViewById(R.id.layoutMakeOffer);
         customerListLayout=(TextView)findViewById(R.id.customerListLayout);
         layoutSpecification=(TextView)findViewById(R.id.layoutSpecification);
@@ -62,17 +62,17 @@ TextView txtmakeoffer,txtspef,txtsetting,txtcustomerlist;
 
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }
+    }*/
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.logout_menu:
+           /* case R.id.logout_menu:
                 signOut();
-                break;
+                break;*/
         }
         return true;
     }
@@ -94,9 +94,9 @@ TextView txtmakeoffer,txtspef,txtsetting,txtcustomerlist;
                 break;
         }
     }
-    private void signOut()
+   /* private void signOut()
     {
         session.logoutUser();
         Home.this.finish();
-    }
+    }*/
 }

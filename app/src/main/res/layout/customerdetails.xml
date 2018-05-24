@@ -16,11 +16,12 @@
     android:textStyle="bold"
     android:textColor="#545f81"/>
 
-    <FrameLayout
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frameCustomerList"
+        android:layout_below="@+id/title"
         android:layout_marginTop="10dp"
-        android:background="#e9ecec"
-        android:layout_below="@+id/title"></FrameLayout>
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/listCustomer"></ListView>
     </RelativeLayout>

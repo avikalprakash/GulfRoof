@@ -36,7 +36,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
-        <RelativeLayout
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listCustomer"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"></ListView>
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -119,7 +126,7 @@
                     android:textColor="#ffffff"
                     android:textAppearance="?attr/textAppearanceListItem" />
             </LinearLayout>
-        </RelativeLayout>
+        </RelativeLayout>-->
     </RelativeLayout>
 
 </LinearLayout>

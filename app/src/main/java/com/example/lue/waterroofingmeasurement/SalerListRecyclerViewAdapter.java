@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lue.waterroofingmeasurement.SalerListFragment.OnListFragmentInteractionListener;
-import com.example.lue.waterroofingmeasurement.dummy.DummyContent.DummyItem;
+
 
 import java.util.List;
 

@@ -145,12 +145,13 @@ public class AdminRegister extends AppCompatActivity implements View.OnClickList
                         //  Intent nextactivity=new Intent(Registration.this,OneRoof.class);
                         //  Toast.makeText(getApplicationContext(), id+user_name+mobile+email+fax+land_line+house_no+block_no+road_no+location, Toast.LENGTH_SHORT).show();
                     }
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AdminRegister.this);
+                    Toast.makeText(getApplicationContext(), "Register Successful"  , Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), SalesOption.class));
+                   /* AlertDialog.Builder builder = new AlertDialog.Builder(AdminRegister.this);
                     builder.setMessage("Register Successful")
                             .setNegativeButton("ok", null)
                             .create()
-                            .show();
+                            .show();*/
 
                 }
 

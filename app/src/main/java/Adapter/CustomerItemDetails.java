@@ -16,6 +16,10 @@ public class CustomerItemDetails {
     String lat="";
     String lang="";
 
+    public CustomerItemDetails() {
+
+    }
+
     public String getId() {
         return id;
     }

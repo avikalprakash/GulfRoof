@@ -97,20 +97,23 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
     private GoogleMap googleMap;
     String giiglemap_adress;
     LocationAddress locationAddress;
-    EditText house_noText, road_no, block_no, address;
+    EditText house_noText, road_no, block_no, address, newprojectname;
     String location="";
     String street="";
     String city="";
     String state="";
     String country="";
     String user_name="";
+    String project_name="";
     String mobile="";
     String email="";
     String fax_s="";
     String landline_s="";
+    String pincode="";
     String house="";
     String road_s="";
     String block_s="";
+    //
     public static final String USERNAME = "user_name";
     public static final String MOBILE = "mobile";
     public static final String EMAIL = "email";
@@ -124,36 +127,68 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_registration);
+        setContentView(R.layout.registation);
         alert = new AlertDialog.Builder(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait for location");
         context=this;
-
+        //Initialize HTTPURLConnection class object
+        //  initialize();
         editcustname = (EditText) findViewById(R.id.newcustomername);
         editmobile = (EditText) findViewById(R.id.newmobileno);
         editmail = (EditText) findViewById(R.id.customeremail);
         editfax = (EditText) findViewById(R.id.customerfax);
         editlandline = (EditText) findViewById(R.id.customerlandline);
+        newprojectname = (EditText) findViewById(R.id.newprojectname);
+        // edithouseno = (EditText) findViewById(R.id.customerhouseno);
+        // editroadno = (EditText) findViewById(R.id.customerroadno);
+        // editblockno = (EditText) findViewById(R.id.customerblockno);
+        // editAddress = (EditText) findViewById(R.id.address);
         house_noText = (EditText) findViewById(R.id.house_no);
         road_no = (EditText) findViewById(R.id.road_no);
         block_no = (EditText) findViewById(R.id.block_no);
         address = (EditText) findViewById(R.id.location);
+        // stateText = (EditText) findViewById(R.id.state);
+        // countryText = (EditText) findViewById(R.id.country);
         getlocation = (Button) findViewById(R.id.getlocation);
         btnreg = (Button) findViewById(R.id.registerbutton);
+        //  pDialog=(ProgressBar) findViewById(R.id.progressBar);
+        // pDialog = new ProgressBar(Registration.this);
         btnreg.setOnClickListener(this);
         getlocation.setOnClickListener(this);
+
+//        mMapView = (MapView)findViewById(R.id.map);
+        //       mMapView.onCreate(savedInstanceState);
+
+        //     mMapView.onResume(); // needed to get the map to display immediately
+
         try {
             MapsInitializer.initialize(getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (getIntent().getStringExtra("city")!=null){
-            location=getIntent().getStringExtra("city");
-            address.setText(location);
+        if (getIntent().getStringExtra("address1")!=null){
+            location=getIntent().getStringExtra("address1");
+            street=getIntent().getStringExtra("street");
+            state=getIntent().getStringExtra("state");
+            city=getIntent().getStringExtra("city");
+            country=getIntent().getStringExtra("country");
+            pincode=getIntent().getStringExtra("pincode");
+
+            project_name=getIntent().getStringExtra("project_name");
+            user_name=getIntent().getStringExtra("user_name");
+            mobile=getIntent().getStringExtra("mobile");
+            email=getIntent().getStringExtra("email");
+            fax_s=getIntent().getStringExtra("fax");
+            landline_s=getIntent().getStringExtra("landline");
+            house=getIntent().getStringExtra("house");
+            road_s=getIntent().getStringExtra("road");
+            block_s=getIntent().getStringExtra("block");
+            address.setText(location+", "+street+", "+city+", "+state+", "+country+", "+pincode);
+            //  Toast.makeText(getApplicationContext(), pincode+street+city+state+country, Toast.LENGTH_LONG).show();
         }
-        sharedpreferences = context.getSharedPreferences("MyPref", MODE_PRIVATE);
+       /* sharedpreferences = context.getSharedPreferences("MyPref", MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
         sharedpreferences=getSharedPreferences(MyPref,Context.MODE_PRIVATE);
@@ -164,7 +199,10 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
         landline_s = sharedpreferences.getString(LANDLINE, "");
         house = sharedpreferences.getString(HOUSE, "");
         road_s = sharedpreferences.getString(ROAD, "");
-        block_s = sharedpreferences.getString(BLOCK, "");
+        block_s = sharedpreferences.getString(BLOCK, "");*/
+        if (user_name!=null) {
+            newprojectname.setText(project_name);
+        }
         if (user_name!=null) {
             editcustname.setText(user_name);
         }
@@ -196,11 +234,24 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.registerbutton:
-                 new Register().execute();
+                new Register().execute();
+                // startActivity(new Intent(getApplicationContext(), OneRoof.class));
+                sharedpreferences=getSharedPreferences(MyPref,Context.MODE_PRIVATE);
+//                editor.clear().commit();
                 break;
             case R.id.getlocation:
-
+              /*  permission = new MMPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permission.result == -1 || permission.result == 0) {
+                    try {
+                        registerForGPS();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (permission.result == 1) {
+                    registerForGPS();
+                }*/
                 user_name = editcustname.getText().toString().trim();
+                project_name = newprojectname.getText().toString().trim();
                 mobile = editmobile.getText().toString().trim();
                 email= editmail.getText().toString().trim();
                 fax_s = editfax.getText().toString().trim();
@@ -211,7 +262,7 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
 
 
 
-                editor.putString("user_name", user_name);
+               /* editor.putString("user_name", user_name);
                 editor.putString("mobile", mobile);
                 editor.putString("email", email);
                 editor.putString("fax", fax_s);
@@ -219,10 +270,21 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
                 editor.putString("house", house);
                 editor.putString("road", road_s);
                 editor.putString("block", block_s);
-                editor.commit();
+                editor.commit();*/
 
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                Intent i = new Intent(getApplicationContext(), MapActivity2.class);
+                i.putExtra("project_name", project_name);
+                i.putExtra("user_name", user_name);
+                i.putExtra("mobile", mobile);
+                i.putExtra("email", email);
+                i.putExtra("fax", fax_s);
+                i.putExtra("landline", landline_s);
+                i.putExtra("house", house);
+                i.putExtra("road", road_s);
+                i.putExtra("block", block_s);
+                startActivity(i);
                 finish();
+                //  registerForGPS();
                 break;
         }
     }
@@ -248,7 +310,7 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
     class Register extends AsyncTask<String, Void, String> {
 
         private ProgressDialog pDialog;
-
+        String project_name = newprojectname.getText().toString().trim();
         String user_name = editcustname.getText().toString().trim();
         String mobile = editmobile.getText().toString().trim();
         String  email= editmail.getText().toString().trim();
@@ -282,6 +344,7 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
                 HttpPost httpPost = new HttpPost(REGISTER_URL);
                 httpPost.setHeader("Content-type", "application/json");
                 JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("project_name", project_name);
                 jsonObject.accumulate("user_name", user_name);
                 jsonObject.accumulate("mobile", mobile);
                 jsonObject.accumulate("email", email);
@@ -382,125 +445,11 @@ public class CustomerRegistration extends AppCompatActivity implements View.OnCl
         String provider = mlocManager.getBestProvider(criteria, true);
         return provider;
     }
-    private void registerForGPS() {
-      /*  Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setSpeedRequired(false);
-        criteria.setCostAllowed(true);*/
-
-
-        mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            alert.setTitle("GPS");
-            alert.setMessage("GPS is turned OFF...\nDo U Want Turn On GPS..");
-            alert.setPositiveButton("Turn on GPS",
-                    new DialogInterface.OnClickListener() {
-                        @TargetApi(Build.VERSION_CODES.M)
-                        @Override
-                        public void onClick(DialogInterface dialog,
-                                            int whichButton) {
-
-                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                // TODO: Consider calling
-                                return;
-                            }
-                            mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-                                    (float) 0.01, (android.location.LocationListener) listener);
-                            setCriteria();
-
-                            mlocManager.requestLocationUpdates(
-                                    LocationManager.NETWORK_PROVIDER, 0, (float)
-                                            0.01, (android.location.LocationListener) listener);
-
-                            Intent I = new Intent(
-                                    android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(I);
-
-                        }
-                    });
-
-            alert.show();
-        }
-
-        else {
-
-            mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-                    (float) 0.01, listener);
-            mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
-                    (float) 0.01, listener);
-            if(!progressDialog.isShowing())progressDialog.show();
-        }
-    }
-
-    private void unregisterForGPS() {
-        mlocManager.removeUpdates(listener);
-    }
-
-    private final LocationListener listener = new LocationListener() {
-
-        @Override
-        public void onLocationChanged(Location location) {
-
-            if (location.getLatitude() > 0.0) {
-                if (location.getAccuracy()>0 && location.getAccuracy()<1000) {
-                    if(progressDialog.isShowing()) progressDialog.dismiss();
-                    if(!isLocation)
-                    {
-                        latitude=String.valueOf(location.getLatitude());
-                        longitude=String.valueOf(location.getLongitude());
-                        Latitude=location.getLatitude();
-                        Longitude=location.getLongitude();
-                        locationName=getAddress(location.getLatitude(),location.getLongitude());
-                        //  editlocation.setText(locationName);
-                        // getMap();
-                        Toast.makeText(getApplicationContext(), locationName, Toast.LENGTH_LONG).show();
-                        unregisterForGPS();
-                    }
-                    isLocation=true;
-                } else {
-                    if(!progressDialog.isShowing()) progressDialog.show();
-                }
-            }
-        }
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-    };
-
-
-    private  String getAddress(double lat,double lang)
-    {
-        Geocoder geocoder;
-        List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
-        String address="";
-
-        try {
-            addresses = geocoder.getFromLocation(lat,lang,1);
-            address=addresses.get(0).getSubLocality()+","+addresses.get(0).getLocality();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return address;
-    }
 
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        editor.clear().commit();
+       // editor.clear().commit();
     }
 }

@@ -165,7 +165,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             sp1Int=a1Int*c1Int;
         }catch (Exception e){}
         try{
-            cost1.setText(String.valueOf(sp1Int));
+            String sp1FInt = String.format("%.03f", sp1Int);
+            cost1.setText(String.valueOf(sp1FInt));
         }catch (Exception e){}
 
 
@@ -256,7 +257,7 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             spec_name11= "";
         }
 
-        if (spec_name1.equals("Torch Applied membrane single layer")){
+      /*  if (spec_name1.equals("Torch Applied membrane single layer")){
             spec_cost1=500;
         }
         if (spec_name2.equals("Light weight foam screed 75mm")){
@@ -288,7 +289,7 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
         }
         if (spec_name11.equals("Liquid reinforced membrane")){
             spec_cost11=300;
-        }
+        }*/
 
        // Toast.makeText(getApplicationContext(), String.valueOf(spec_cost1)+", "+String.valueOf(spec_cost2), Toast.LENGTH_LONG).show();
 
@@ -302,7 +303,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             cost1.setText("NA");
         }else {
             total1=Double.parseDouble(at1)*sp1Int;
-            totalCost1.setText(String.valueOf(total1));
+            String fTotal1 = String.format("%.03f", total1);
+            totalCost1.setText(String.valueOf(fTotal1));
         }
 
 
@@ -332,7 +334,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             sp2Int=a2Int*c2Int;
         }catch (Exception e){}
         try{
-            cost2.setText(String.valueOf(sp2Int));
+            String fSp2Int = String.format("%.03f", sp2Int);
+            cost2.setText(String.valueOf(fSp2Int));
         }catch (Exception e){}
 
         if (fSpe2.equals("NA")){
@@ -348,7 +351,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             cost2.setText("NA");
         }else {
             total2=Double.parseDouble(at2)*sp2Int;
-            totalCost2.setText(String.valueOf(total2));
+            String fTotal2 = String.format("%.03f", total2);
+            totalCost2.setText(String.valueOf(fTotal2));
         }
 
 
@@ -379,7 +383,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             sp3Int=a3Int*c3Int;
         }catch (Exception e){}
         try{
-            cost3.setText(String.valueOf(sp3Int));
+            String fsp3Int = String.format("%.03f", sp3Int);
+            cost3.setText(String.valueOf(fsp3Int));
         }catch (Exception e){}
 
         if (fSpe3.equals("NA")){
@@ -395,7 +400,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             cost3.setText("NA");
         }else {
             total3=Double.parseDouble(at3)*sp3Int;
-            totalCost3.setText(String.valueOf(total3));
+            String fTotal2 = String.format("%.03f", total3);
+            totalCost3.setText(String.valueOf(fTotal2));
         }
 
 
@@ -426,7 +432,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             sp4Int=a4Int*c4Int;
         }catch (Exception e){}
         try{
-            cost4.setText(String.valueOf(sp4Int));
+            String fsp4Int = String.format("%.03f", sp4Int);
+            cost4.setText(String.valueOf(fsp4Int));
         }catch (Exception e){}
 
         if (fSpe4.equals("NA")){
@@ -442,7 +449,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             cost4.setText("NA");
         }else {
             total4=Double.parseDouble(at4)*sp4Int;
-            totalCost4.setText(String.valueOf(total4));
+            String fTotal4 = String.format("%.03f", total4);
+            totalCost4.setText(String.valueOf(fTotal4));
         }
 
         prefsRooftype=getSharedPreferences(Roof5.PREFS_ROOFTYPE, Context.MODE_PRIVATE);
@@ -471,7 +479,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             sp5Int=a5Int*c5Int;
         }catch (Exception e){}
         try{
-            cost5.setText(String.valueOf(sp5Int));
+            String fsp5Int = String.format("%.03f", sp5Int);
+            cost5.setText(String.valueOf(fsp5Int));
         }catch (Exception e){}
 
         if (fSpe5.equals("NA")){
@@ -487,11 +496,13 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             cost5.setText("NA");
         }else {
             total5=Double.parseDouble(at5)*sp5Int;
-            totalCost5.setText(String.valueOf(total5));
+            String fTotal5 = String.format("%.03f", total5);
+            totalCost5.setText(String.valueOf(fTotal5));
         }
 
         finalTotal=total1+total2+total3+total4+total5;
-        totalfinalCost.setText(String.valueOf(finalTotal));
+        String FINALCOST = String.format("%.03f", finalTotal);
+        totalfinalCost.setText(String.valueOf(FINALCOST));
     }
 
 
